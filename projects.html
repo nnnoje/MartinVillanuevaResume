@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Villanueva — My Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0d0d0d;--paper:#f2f0eb;--paper2:#e8e5de;--red:#d62828;--blue:#1a1aff;--muted:#888880;--border:rgba(13,13,13,.22);--serif:'Instrument Serif',Georgia,serif;--sans:'Syne',sans-serif;--mono:'DM Mono',monospace;--ease:cubic-bezier(.76,0,.24,1);}
+[data-theme="dark"]{--ink:#f2f0eb;--paper:#0d0d0d;--paper2:#161614;--border:rgba(242,240,235,.18);--muted:#666660;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);overflow:hidden;transition:background .4s,color .4s;cursor:none;height:100vh;}
+a{color:inherit;text-decoration:none;}
+button{cursor:none;}
+
+/* STAR CURSOR */
+#cur-star{position:fixed;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);}
+#cur-star svg{display:block;transition:width .25s var(--ease),height .25s var(--ease);}
+#cur-trail{position:fixed;pointer-events:none;z-index:99997;transform:translate(-50%,-50%);opacity:0;transition:opacity .4s;}
+#cur-trail svg{display:block;}
+body:hover #cur-trail{opacity:.18;}
+.cur-burst{position:fixed;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);animation:burst .5s var(--ease) forwards;}
+@keyframes burst{0%{opacity:1;transform:translate(-50%,-50%) scale(.3) rotate(0deg);}60%{opacity:.8;transform:translate(-50%,-50%) scale(1.6) rotate(90deg);}100%{opacity:0;transform:translate(-50%,-50%) scale(2.2) rotate(135deg);}}
+
+/* LOGO */
+.logo-img{height:130px;width:auto;display:block;object-fit:contain;transition:opacity .2s,filter .4s;}
+.logo-img:hover{opacity:.7;}
+[data-theme="dark"] .logo-img{filter:invert(1);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:54px;border-bottom:2px solid var(--border);background:var(--paper);transition:background .4s;backdrop-filter:blur(12px);}
+.logo-link{display:flex;align-items:center;height:122px;}
+.logo-text{display:none;font-family:var(--mono);font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--ink);}
+.logo-text b{color:var(--red);}
+.nav-links{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:1rem;}
+.nav-links a{font-family:var(--mono);font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;padding:.4rem 1.1rem;color:var(--muted);border-left:2px solid var(--border);transition:color .2s;position:relative;}
+.nav-links a:first-child{border-left:none;}
+.nav-links a:hover{color:var(--ink);}
+.nav-links a.active{color:var(--ink);}
+.nav-links a.active::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--red);}
+.nav-r{display:flex;align-items:center;gap:1rem;}
+.theme-btn{background:none;border:2px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:.6rem;letter-spacing:1px;text-transform:uppercase;padding:.3rem .7rem;border-radius:2px;transition:color .2s,border-color .2s;}
+.theme-btn:hover{color:var(--ink);border-color:var(--ink);}
+.hamburger{display:none;flex-direction:column;gap:4px;background:none;border:none;}
+.hamburger span{width:20px;height:1.5px;background:var(--ink);display:block;}
+
+/* ── INSTAGRAM LAYOUT ── */
+.ig-stage{position:fixed;top:54px;left:0;right:0;bottom:0;display:flex;transition:transform .7s var(--ease);}
+.ig-panel{flex:0 0 100vw;width:100vw;height:100%;display:flex;overflow:hidden;border-right:2px solid var(--border);}
+
+/* Left sidebar */
+.ig-sidebar{width:280px;flex-shrink:0;border-right:2px solid var(--border);display:flex;flex-direction:column;height:100%;background:var(--paper);overflow-y:auto;scrollbar-width:none;}
+.ig-sidebar::-webkit-scrollbar{display:none;}
+.ig-sid-top{background:var(--red);padding:1.75rem 1.5rem;position:relative;overflow:hidden;flex-shrink:0;}
+.ig-sid-top::after{content:'';position:absolute;bottom:-20px;right:-20px;width:120px;height:120px;border:40px solid rgba(255,255,255,.06);border-radius:50%;}
+.ig-proj-num{font-family:var(--mono);font-size:.58rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.75rem;}
+.ig-proj-name{font-family:var(--serif);font-size:clamp(2rem,3.5vw,2.8rem);line-height:.95;letter-spacing:-1.5px;color:#fff;margin-bottom:.6rem;}
+.ig-proj-name em{font-style:italic;opacity:.7;}
+.ig-proj-sub{font-family:var(--mono);font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);}
+.ig-desc{padding:1.5rem 2rem;font-family:var(--serif);font-size:.95rem;line-height:1.7;color:var(--ink);border-bottom:2px solid var(--border);}
+
+/* Technologies in sidebar */
+.ig-sid-tech{padding:1.25rem 2rem 1.5rem;}
+.ig-sid-tech-lbl{font-family:var(--mono);font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:.85rem;display:flex;align-items:center;gap:.4rem;}
+.ig-sid-tech-lbl::before{content:'//';color:var(--red);}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;}
+.chip{font-family:var(--mono);font-size:.6rem;letter-spacing:1px;text-transform:uppercase;border:2px solid var(--border);padding:.3rem .7rem;color:var(--muted);transition:border-color .25s,color .25s;
+  opacity:0;transform:scale(.85);transition:opacity .4s var(--ease),transform .4s var(--ease),border-color .25s,color .25s;}
+.chip.revealed{opacity:1;transform:scale(1);}
+.chip:hover{border-color:var(--red);color:var(--red);}
+.chip.r{border-color:rgba(214,40,40,.45);color:var(--red);background:rgba(214,40,40,.06);}
+
+/* Right content */
+.ig-content{flex:1;overflow-y:auto;height:100%;scroll-behavior:smooth;scrollbar-width:none;}
+.ig-content::-webkit-scrollbar{display:none;}
+
+/* Each section block */
+.ig-section{padding:2rem 2.5rem;border-bottom:2px solid var(--border);opacity:0;transform:translateY(40px);transition:opacity .65s var(--ease),transform .65s var(--ease);}
+.ig-section.revealed{opacity:1;transform:translateY(0);}
+
+/* Section label */
+.sec-lbl{font-family:var(--mono);font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;display:flex;align-items:center;gap:.6rem;}
+.sec-lbl::before{content:'//';color:var(--red);}
+
+/* Single screenshot */
+.shot-wrap{max-width:580px;margin:0 auto;}
+.shot-single{aspect-ratio:16/9;background:var(--paper2);display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden;border:2px solid var(--border);transition:transform .4s var(--ease);}
+.shot-single img{width:100%;height:100%;object-fit:cover;display:block;}
+.shot-single:hover{transform:scale(.98);}
+.shot-lbl{position:absolute;bottom:.75rem;left:1rem;font-family:var(--mono);font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+
+/* Key features */
+.feat-list{list-style:none;}
+.feat-list li{font-size:.9rem;color:var(--ink);padding:.65rem 0;border-bottom:2px solid var(--border);display:flex;gap:.75rem;align-items:flex-start;line-height:1.5;
+  opacity:0;transform:translateX(-20px);transition:opacity .5s var(--ease),transform .5s var(--ease);}
+.feat-list li.revealed{opacity:1;transform:translateX(0);}
+.feat-list li:last-child{border-bottom:none;}
+.feat-list li::before{content:'✦';color:var(--red);flex-shrink:0;font-family:var(--mono);font-size:.75rem;margin-top:.1em;}
+
+/* Horizontal nav */
+.ig-nav{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:1.5rem;z-index:500;background:var(--paper);border:2px solid var(--border);padding:.6rem 1.4rem;}
+.ig-dots{display:flex;gap:.5rem;align-items:center;}
+.ig-dot{width:8px;height:8px;border-radius:50%;background:var(--border);border:none;transition:background .3s,transform .3s,width .3s;}
+.ig-dot.active{background:var(--red);width:24px;border-radius:4px;}
+.ig-arrow{width:34px;height:34px;border:2px solid var(--border);background:none;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1rem;transition:border-color .2s,color .2s;}
+.ig-arrow:hover{border-color:var(--red);color:var(--red);}
+.ig-arrow:disabled{opacity:.3;}
+
+/* Project counter */
+.ig-counter{position:fixed;top:54px;right:0;z-index:500;font-family:var(--mono);font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:.65rem 1.5rem;border-bottom:2px solid var(--border);border-left:2px solid var(--border);background:var(--paper);}
+.ig-counter span{color:var(--red);}
+
+@media(max-width:900px){
+  .ig-sidebar{width:240px;}
+  .ig-section{padding:2rem;}
+}
+@media(max-width:700px){
+  .hamburger{display:flex;}
+  .nav-links{display:none;position:fixed;top:54px;left:0;right:0;background:var(--paper);border-bottom:2px solid var(--border);flex-direction:column;z-index:999;}
+  .nav-links.open{display:flex;}
+  .nav-links a{border-left:none;border-bottom:2px solid var(--border);padding:1rem 2rem;}
+  .ig-panel{flex-direction:column;}
+  .ig-sidebar{width:100%;height:auto;border-right:none;border-bottom:2px solid var(--border);}
+  .ig-sid-top{padding:1.5rem;}
+  .ig-proj-name{font-size:2.2rem;}
+  .ig-content{flex:1;}
+}
+</style>
+</head>
+<body>
+
+<div id="cur-star"><svg width="26" height="26" viewBox="0 0 28 28" fill="none"><path d="M14 0 C14 0 15.6 11.4 14 14 C12.4 16.6 0 14 0 14 C0 14 12.4 11.4 14 14 C15.6 16.6 14 28 14 28 C14 28 12.4 16.6 14 14 C15.6 11.4 28 14 28 14 C28 14 15.6 16.6 14 14 C12.4 11.4 14 0 14 0Z" fill="var(--red)"/></svg></div>
+<div id="cur-trail"><svg width="16" height="16" viewBox="0 0 28 28" fill="none"><path d="M14 0 C14 0 15.6 11.4 14 14 C12.4 16.6 0 14 0 14 C0 14 12.4 11.4 14 14 C15.6 16.6 14 28 14 28 C14 28 12.4 16.6 14 14 C15.6 11.4 28 14 28 14 C28 14 15.6 16.6 14 14 C12.4 11.4 14 0 14 0Z" fill="var(--red)" opacity=".5"/></svg></div>
+
+<nav>
+  <a href="index.html" class="logo-link">
+    <img class="logo-img" src="images/LOGO.png" alt="MCV Logo" onerror="this.style.display='none';document.getElementById('logo-fb').style.display='block';">
+    <span class="logo-text" id="logo-fb">MCV<b>.</b></span>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html" class="active">Projects</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-r">
+    <button class="theme-btn" id="themeBtn">☀ / ☾</button>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- Project counter -->
+<div class="ig-counter" id="igCounter"><span>01</span> / 04</div>
+
+<!-- Horizontal slide stage -->
+<div class="ig-stage" id="igStage">
+
+  <!-- ─── PROJECT 01 ─── -->
+  <div class="ig-panel" data-index="0" id="project-0">
+    <div class="ig-sidebar">
+      <div class="ig-sid-top">
+        <div class="ig-proj-num">// Project 01 · Service Website</div>
+        <div class="ig-proj-name">Studio<em>Spot</em></div>
+        <div class="ig-proj-sub">Studio Rental Platform · Booking &amp; Marketplace</div>
+      </div>
+      <div class="ig-desc">StudioSpot is a studio rental website that lets users browse, book, and manage studios for photography, music, or work. It centralizes listings with photos, prices, and availability — allowing easy booking, payment, and communication between renters and owners.</div>
+      <div class="ig-sid-tech">
+        <div class="ig-sid-tech-lbl">Technologies</div>
+        <div class="chips">
+          <span class="chip r" data-chip="0">HTML</span>
+          <span class="chip r" data-chip="1">CSS</span>
+          <span class="chip r" data-chip="2">JavaScript</span>
+          <span class="chip" data-chip="3">Figma</span>
+          <span class="chip" data-chip="4">GitHub</span>
+        </div>
+      </div>
+    </div>
+    <div class="ig-content" data-panel="0">
+      <div class="ig-section" data-delay="0">
+        <div class="sec-lbl">Screenshot</div>
+        <div class="shot-wrap"><div class="shot-single">🏠<div class="shot-lbl">Homepage</div></div></div>
+      </div>
+      <div class="ig-section" data-delay="1">
+        <div class="sec-lbl">Key Features</div>
+        <ul class="feat-list">
+          <li data-li="0">Browse and filter studios by type and availability</li>
+          <li data-li="1">Secure online booking with instant confirmation</li>
+          <li data-li="2">Integrated payment processing system</li>
+          <li data-li="3">Real-time availability calendar</li>
+          <li data-li="4">Owner–renter messaging system</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── PROJECT 02 ─── -->
+  <div class="ig-panel" data-index="1" id="project-1">
+    <div class="ig-sidebar">
+      <div class="ig-sid-top">
+        <div class="ig-proj-num">// Project 02 · Service Website</div>
+        <div class="ig-proj-name"><em>Fix</em>ify</div>
+        <div class="ig-proj-sub">Local Service Marketplace · On-Demand Repairs</div>
+      </div>
+      <div class="ig-desc">Fixify connects users with trusted local service providers for various household services, ensuring convenient booking and reliable assistance. Browse service categories, compare providers by ratings and price, and book directly through the platform.</div>
+      <div class="ig-sid-tech">
+        <div class="ig-sid-tech-lbl">Technologies</div>
+        <div class="chips">
+          <span class="chip r" data-chip="0">React</span>
+          <span class="chip r" data-chip="1">Angular</span>
+          <span class="chip r" data-chip="2">Node.js</span>
+          <span class="chip" data-chip="3">CSS</span>
+          <span class="chip" data-chip="4">GitHub</span>
+          <span class="chip" data-chip="5">Figma</span>
+        </div>
+      </div>
+    </div>
+    <div class="ig-content" data-panel="1">
+      <div class="ig-section" data-delay="0">
+        <div class="sec-lbl">Screenshot</div>
+        <div class="shot-wrap"><div class="shot-single">🔧<div class="shot-lbl">Listings</div></div></div>
+      </div>
+      <div class="ig-section" data-delay="1">
+        <div class="sec-lbl">Key Features</div>
+        <ul class="feat-list">
+          <li data-li="0">Provider verification and ratings system</li>
+          <li data-li="1">Category-based service browsing</li>
+          <li data-li="2">Real-time booking and scheduling</li>
+          <li data-li="3">Secure payment gateway integration</li>
+          <li data-li="4">Review and feedback for quality control</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── PROJECT 03 ─── -->
+  <div class="ig-panel" data-index="2" id="project-2">
+    <div class="ig-sidebar">
+      <div class="ig-sid-top">
+        <div class="ig-proj-num">// Project 03 · Blog Website</div>
+        <div class="ig-proj-name">Next<em>Play</em></div>
+        <div class="ig-proj-sub">Personalized Game Discovery · Blog Platform</div>
+      </div>
+      <div class="ig-desc">NextPlay is a personalized discovery platform that analyzes user preferences and playstyles to recommend the ideal video game — ensuring effortless decision-making and a curated gaming experience. Features editorial reviews, community picks, and preference-matching.</div>
+      <div class="ig-sid-tech">
+        <div class="ig-sid-tech-lbl">Technologies</div>
+        <div class="chips">
+          <span class="chip r" data-chip="0">WordPress</span>
+          <span class="chip" data-chip="1">GitHub</span>
+        </div>
+      </div>
+    </div>
+    <div class="ig-content" data-panel="2">
+      <div class="ig-section" data-delay="0">
+        <div class="sec-lbl">Screenshot</div>
+        <div class="shot-wrap"><div class="shot-single">🎮<div class="shot-lbl">Home Feed</div></div></div>
+      </div>
+      <div class="ig-section" data-delay="1">
+        <div class="sec-lbl">Key Features</div>
+        <ul class="feat-list">
+          <li data-li="0">AI-powered game recommendation engine</li>
+          <li data-li="1">User preference profiling and playstyle quiz</li>
+          <li data-li="2">Editorial blog posts and curated reviews</li>
+          <li data-li="3">Community ratings and discussion boards</li>
+          <li data-li="4">Personalized gaming wishlist tracker</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── PROJECT 04 ─── -->
+  <div class="ig-panel" data-index="3" id="project-3">
+    <div class="ig-sidebar">
+      <div class="ig-sid-top">
+        <div class="ig-proj-num">// Project 04 · Business Website</div>
+        <div class="ig-proj-name"><em>Velasquez</em> Funeral &amp; Chapel</div>
+        <div class="ig-proj-sub">Memorial Services · Business Website</div>
+      </div>
+      <div class="ig-desc">Velasquez Funeral &amp; Chapel is a compassionate and professional business website designed to help grieving families find funeral services, chapel packages, and memorial arrangements with dignity. The site provides clear service listings, pricing, and easy inquiry forms.</div>
+      <div class="ig-sid-tech">
+        <div class="ig-sid-tech-lbl">Technologies</div>
+        <div class="chips">
+          <span class="chip r" data-chip="0">HTML</span>
+          <span class="chip r" data-chip="1">CSS</span>
+          <span class="chip r" data-chip="2">JavaScript</span>
+          <span class="chip" data-chip="3">Figma</span>
+          <span class="chip" data-chip="4">WordPress</span>
+          <span class="chip" data-chip="5">GitHub</span>
+        </div>
+      </div>
+    </div>
+    <div class="ig-content" data-panel="3">
+      <div class="ig-section" data-delay="0">
+        <div class="sec-lbl">Screenshot</div>
+        <div class="shot-wrap"><div class="shot-single">🕊<div class="shot-lbl">Homepage</div></div></div>
+      </div>
+      <div class="ig-section" data-delay="1">
+        <div class="sec-lbl">Key Features</div>
+        <ul class="feat-list">
+          <li data-li="0">Service and package listings with pricing</li>
+          <li data-li="1">Chapel availability and scheduling</li>
+          <li data-li="2">Online inquiry and callback request form</li>
+          <li data-li="3">Testimonials and family tributes section</li>
+          <li data-li="4">Responsive, mobile-friendly compassionate design</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /ig-stage -->
+
+<!-- Bottom nav bar -->
+<div class="ig-nav">
+  <button class="ig-arrow" id="igPrev" disabled>✦</button>
+  <div class="ig-dots" id="igDots">
+    <button class="ig-dot active" data-i="0"></button>
+    <button class="ig-dot" data-i="1"></button>
+    <button class="ig-dot" data-i="2"></button>
+    <button class="ig-dot" data-i="3"></button>
+  </div>
+  <button class="ig-arrow" id="igNext">✦</button>
+</div>
+
+<script>
+/* ─── Star cursor ─── */
+const star=document.getElementById('cur-star'),trail=document.getElementById('cur-trail');
+const starSvg=star.querySelector('svg'),trailSvg=trail.querySelector('svg');
+let mx=0,my=0,tx=0,ty=0,ang=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;star.style.left=mx+'px';star.style.top=my+'px';});
+(function loop(){tx+=(mx-tx)*.09;ty+=(my-ty)*.09;trail.style.left=tx+'px';trail.style.top=ty+'px';ang+=1.5;star.style.transform=`translate(-50%,-50%) rotate(${ang}deg)`;requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button,.shot-single').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{starSvg.setAttribute('width','38');starSvg.setAttribute('height','38');trailSvg.setAttribute('width','24');trailSvg.setAttribute('height','24');});
+  el.addEventListener('mouseleave',()=>{starSvg.setAttribute('width','26');starSvg.setAttribute('height','26');trailSvg.setAttribute('width','16');trailSvg.setAttribute('height','16');});
+});
+document.addEventListener('click',e=>{
+  for(let i=0;i<6;i++){const b=document.createElement('div');b.className='cur-burst';b.style.left=e.clientX+'px';b.style.top=e.clientY+'px';b.style.animationDelay=(i*40)+'ms';b.innerHTML=`<svg width="${10+i*3}" height="${10+i*3}" viewBox="0 0 28 28" fill="none"><path d="M14 0 C14 0 15.6 11.4 14 14 C12.4 16.6 0 14 0 14 C0 14 12.4 11.4 14 14 C15.6 16.6 14 28 14 28 C14 28 12.4 16.6 14 14 C15.6 11.4 28 14 28 14 C28 14 15.6 16.6 14 14 C12.4 11.4 14 0 14 0Z" fill="var(--red)"/></svg>`;document.body.appendChild(b);setTimeout(()=>b.remove(),600);}
+});
+
+/* ─── Instagram horizontal swipe ─── */
+const stage = document.getElementById('igStage');
+const panels = [...document.querySelectorAll('.ig-panel')];
+const dots = [...document.querySelectorAll('.ig-dot')];
+const prevBtn = document.getElementById('igPrev');
+const nextBtn = document.getElementById('igNext');
+const counter = document.getElementById('igCounter');
+const TOTAL = panels.length;
+let current = 0;
+let isAnimating = false;
+
+function revealSections(panelIdx) {
+  const panel = panels[panelIdx];
+  panel.querySelectorAll('.ig-section').forEach(s=>{s.classList.remove('revealed');});
+  panel.querySelectorAll('.feat-list li').forEach(li=>{li.classList.remove('revealed');});
+  // Also reveal sidebar chips
+  panel.querySelectorAll('.chip').forEach(c=>{c.classList.remove('revealed');});
+
+  const content = panel.querySelector('.ig-content');
+  content.scrollTop = 0;
+
+  // Reveal sidebar chips with stagger
+  panel.querySelectorAll('.ig-sid-tech .chip').forEach((c, j) => {
+    setTimeout(() => c.classList.add('revealed'), 150 + j * 60);
+  });
+
+  panel.querySelectorAll('.ig-section').forEach((sec, i) => {
+    setTimeout(() => {
+      sec.classList.add('revealed');
+      sec.querySelectorAll('.feat-list li').forEach((li, j) => {
+        setTimeout(() => li.classList.add('revealed'), j * 80);
+      });
+    }, 200 + i * 180);
+  });
+}
+
+function goTo(idx) {
+  if (isAnimating || idx === current) return;
+  isAnimating = true;
+  current = Math.max(0, Math.min(TOTAL - 1, idx));
+
+  stage.style.transform = `translateX(-${current * 100}vw)`;
+  dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === TOTAL - 1;
+  counter.innerHTML = `<span>${String(current+1).padStart(2,"0")}</span> / ${String(TOTAL).padStart(2,"0")}`;
+
+  setTimeout(() => {
+    isAnimating = false;
+    revealSections(current);
+  }, 720);
+}
+
+prevBtn.addEventListener('click', () => goTo(current - 1));
+nextBtn.addEventListener('click', () => goTo(current + 1));
+dots.forEach(d => d.addEventListener('click', () => goTo(parseInt(d.dataset.i))));
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') goTo(current + 1);
+  if (e.key === 'ArrowLeft') goTo(current - 1);
+});
+
+let touchStartX = 0;
+stage.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive:true});
+stage.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 50) goTo(current + (dx < 0 ? 1 : -1));
+}, {passive:true});
+
+let dragStart = null;
+stage.addEventListener('mousedown', e => { dragStart = e.clientX; });
+stage.addEventListener('mouseup', e => {
+  if (dragStart === null) return;
+  const dx = e.clientX - dragStart;
+  dragStart = null;
+  if (Math.abs(dx) > 80) goTo(current + (dx < 0 ? 1 : -1));
+});
+
+const saved = localStorage.getItem('mcv-theme') || 'dark';
+document.documentElement.setAttribute('data-theme', saved);
+document.getElementById('themeBtn').addEventListener('click', () => {
+  const d = document.documentElement, next = d.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  d.setAttribute('data-theme', next); localStorage.setItem('mcv-theme', next);
+});
+document.getElementById('hamburger').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+
+// Read hash on load and jump to the correct project
+const hash = window.location.hash; // e.g. "#project-2"
+let startIndex = 0;
+if (hash) {
+  const match = hash.match(/project-(\d+)/);
+  if (match) startIndex = Math.min(parseInt(match[1]), TOTAL - 1);
+}
+
+if (startIndex > 0) {
+  // Set immediately without animation
+  current = startIndex;
+  stage.style.transition = 'none';
+  stage.style.transform = `translateX(-${current * 100}vw)`;
+  dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === TOTAL - 1;
+  counter.innerHTML = `<span>${String(current+1).padStart(2,"0")}</span> / ${String(TOTAL).padStart(2,"0")}`;
+  // Re-enable transition after frame
+  requestAnimationFrame(() => { stage.style.transition = ''; });
+}
+revealSections(startIndex);
+</script>
+</body>
+</html>
