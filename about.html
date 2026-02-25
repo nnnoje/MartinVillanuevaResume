@@ -21,7 +21,6 @@ button{cursor:none;}
 body:hover #cur-trail{opacity:.18;}
 .cur-burst{position:fixed;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);animation:burst .5s var(--ease) forwards;}
 @keyframes burst{0%{opacity:1;transform:translate(-50%,-50%) scale(.3) rotate(0deg);}60%{opacity:.8;transform:translate(-50%,-50%) scale(1.6) rotate(90deg);}100%{opacity:0;transform:translate(-50%,-50%) scale(2.2) rotate(135deg);}}
-/* LOGO dark/light */
 .logo-img{height:130px;width:auto;display:block;object-fit:contain;transition:opacity .2s,filter .4s;}
 .logo-img:hover{opacity:.7;}
 [data-theme="dark"] .logo-img{filter:invert(1);}
@@ -49,8 +48,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .about-side{border-right:2px solid var(--border);padding:3rem 2rem;position:sticky;top:54px;height:fit-content;}
 .side-card{border:2px solid var(--border);overflow:hidden;}
 .sc-photo-wrap{position:relative;overflow:hidden;border-bottom:2px solid var(--border);}
-/* Slightly bigger photo */
-.sc-photo{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;display:block;transform:scale(1.06);transform-origin:center top;}
+.sc-photo{width:100%;height:auto;display:block;object-fit:contain;}
 .sc-photo-placeholder{width:100%;aspect-ratio:3/4;background:var(--paper2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;}
 .sc-photo-icon{font-size:3.5rem;opacity:.25;}
 .sc-photo-hint{font-family:var(--mono);font-size:.55rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-align:center;line-height:1.8;}
@@ -82,16 +80,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .sk-tag span{position:relative;z-index:1;}
 .sk-tag.primary{border-color:rgba(214,40,40,.45);color:var(--red);}
 .sk-tag.primary:hover{color:#fff;}
-
-/* Education rows */
 .edu-row{display:flex;justify-content:space-between;align-items:flex-start;padding:1rem 0;border-bottom:2px solid var(--border);transition:padding .2s var(--ease);cursor:none;}
 .edu-row:hover{padding-left:.75rem;}
 .edu-row:first-of-type{border-top:2px solid var(--border);}
 .edu-name{font-size:.9rem;color:var(--ink);font-weight:600;}
 .edu-by{font-family:var(--mono);font-size:.6rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:.15rem;}
 .edu-date{font-family:var(--mono);font-size:.62rem;color:var(--red);letter-spacing:1px;white-space:nowrap;margin-left:1rem;}
-
-/* Certification rows — clickable links */
 .cert-row{display:flex;justify-content:space-between;align-items:center;padding:1rem 0;border-bottom:2px solid var(--border);transition:padding .2s var(--ease);cursor:none;position:relative;}
 .cert-row:hover{padding-left:.75rem;}
 .cert-row:first-of-type{border-top:2px solid var(--border);}
@@ -103,7 +97,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .cert-by{font-family:var(--mono);font-size:.6rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:.15rem;}
 .cert-date{font-family:var(--mono);font-size:.62rem;color:var(--red);letter-spacing:1px;white-space:nowrap;margin-left:1rem;display:flex;align-items:center;gap:.4rem;}
 .cert-ext{font-family:var(--mono);font-size:.55rem;opacity:0;transition:opacity .2s;color:var(--muted);}
-
 footer{border-top:2px solid var(--border);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:1.5rem 2rem;max-width:1280px;margin:3rem auto 0;}
 .f-l{font-family:var(--mono);font-size:.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
 .f-c{font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--muted);text-align:center;}
@@ -143,18 +136,18 @@ footer{border-top:2px solid var(--border);display:grid;grid-template-columns:1fr
 </nav>
 <div style="padding-top:54px;">
   <div class="pg-header">
-    <div><div class="pg-tag">§ Who I Am</div><div class="pg-title">About <em>Me</em></div></div>
+    <div><div class="pg-tag">✦ ✦ ✦</div><div class="pg-title">About <em>Me</em></div></div>
     <div class="pg-right">BSIT · Holy Angel University<br>2023 — 2027</div>
   </div>
   <div class="about-split">
     <div class="about-side">
       <div class="side-card">
         <div class="sc-photo-wrap">
-          <img class="sc-photo" src="photo.png" alt="Martin Conrad Villanueva"
+          <img class="sc-photo" src="image1.png" alt="Martin Conrad Villanueva"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="sc-photo-placeholder" style="display:none;">
             <div class="sc-photo-icon">🖼</div>
-            <div class="sc-photo-hint">Add your photo here<br>Replace photo.png with<br>your image file</div>
+            <div class="sc-photo-hint"><img src="" alt=""></div>
           </div>
           <div class="sc-photo-badge">✦ Martin Conrad</div>
         </div>
