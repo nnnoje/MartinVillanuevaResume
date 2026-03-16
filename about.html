@@ -41,7 +41,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .hamburger span{width:20px;height:1.5px;background:var(--ink);display:block;transition:.3s;}
 .pg-header{border-bottom:2px solid var(--border);padding:3rem 2rem 2rem;max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;}
 .pg-tag{font-family:var(--mono);font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:.5rem;}
-.pg-title{font-family:var(--serif);font-size:clamp(3rem,6vw,5.5rem);line-height:1;letter-spacing:-1.5px;}
+.pg-title{font-family:var(--serif);font-size:clamp(2.5rem,6vw,5.5rem);line-height:1;letter-spacing:-1.5px;}
 .pg-title em{font-style:italic;color:var(--muted);}
 .pg-right{font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:1px;text-align:right;line-height:1.6;}
 .about-split{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:320px 1fr;border-bottom:2px solid var(--border);}
@@ -102,16 +102,67 @@ footer{border-top:2px solid var(--border);display:grid;grid-template-columns:1fr
 .f-c{font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--muted);text-align:center;}
 .f-r{font-family:var(--mono);font-size:.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-align:right;}
 .f-r span{color:var(--red);}
+
+/* ── MOBILE FIXES ── */
 @media(max-width:768px){
+  body{cursor:auto;}
+  #cur-star,#cur-trail{display:none;}
   .hamburger{display:flex;}
-  .nav-links{display:none;position:fixed;top:54px;left:0;right:0;background:var(--paper);border-bottom:2px solid var(--border);flex-direction:column;z-index:999;}
+  .nav-links{
+    display:none;
+    position:fixed;
+    top:54px;left:0;right:0;
+    background:var(--paper);
+    border-bottom:2px solid var(--border);
+    flex-direction:column;
+    z-index:999;
+    transform:none;
+    width:100%;
+  }
   .nav-links.open{display:flex;}
   .nav-links a{border-left:none;border-bottom:2px solid var(--border);padding:1rem 2rem;}
+
+  .pg-header{padding:2rem 1.25rem 1.5rem;}
+  .pg-title{font-size:clamp(2rem,10vw,3.5rem);}
+  .pg-right{display:none;}
+
   .about-split{grid-template-columns:1fr;}
-  .about-side{position:static;border-right:none;border-bottom:2px solid var(--border);}
-  .about-main{padding:2rem 1.5rem;}
+  .about-side{
+    position:static;
+    border-right:none;
+    border-bottom:2px solid var(--border);
+    padding:1.5rem 1.25rem;
+  }
+  .about-main{padding:2rem 1.25rem;}
+
+  /* Side card compact on mobile */
+  .sc-photo-wrap{max-height:280px;overflow:hidden;}
+  .sc-photo{object-fit:cover;width:100%;height:280px;}
+
+  /* Stack sc-row values nicely */
+  .sc-row{flex-wrap:wrap;}
+  .sc-val{text-align:left;word-break:break-all;}
+
+  .sec-head{font-size:1.8rem;margin:2rem 0 1rem;}
+  .bio-p{font-size:1rem;}
+
+  .sk-tag{font-size:.65rem;padding:.45rem .8rem;}
+
+  /* Certs wrap on small screen */
+  .cert-link{flex-wrap:wrap;gap:.5rem;}
+  .cert-date{margin-left:0;}
+
   footer{grid-template-columns:1fr;gap:.5rem;text-align:center;}
   .f-r{text-align:center;}
+  .f-l{text-align:center;}
+
+  nav{padding:0 1rem;}
+}
+
+@media(max-width:480px){
+  .pg-title{font-size:2.2rem;}
+  .sc-key{font-size:.52rem;}
+  .sc-val{font-size:.62rem;}
 }
 </style>
 </head>
@@ -131,7 +182,7 @@ footer{border-top:2px solid var(--border);display:grid;grid-template-columns:1fr
   </div>
   <div class="nav-r">
     <button class="theme-btn" id="themeBtn">☀ / ☾</button>
-    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 <div style="padding-top:54px;">
@@ -147,7 +198,7 @@ footer{border-top:2px solid var(--border);display:grid;grid-template-columns:1fr
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="sc-photo-placeholder" style="display:none;">
             <div class="sc-photo-icon">🖼</div>
-            <div class="sc-photo-hint"><img src="" alt=""></div>
+            <div class="sc-photo-hint">Profile Photo</div>
           </div>
           <div class="sc-photo-badge">✦ Martin Conrad</div>
         </div>
@@ -222,7 +273,7 @@ footer{border-top:2px solid var(--border);display:grid;grid-template-columns:1fr
       </div>
       <div class="cert-row">
         <a class="cert-link" href="https://www.simplilearn.com/free-website-design-course-chatgpt-skillup" target="_blank" rel="noopener">
-          <div><div class="cert-name">Website UI/UX Designing using ChatGPT</div><div class="cert-by">HubSpot Academy</div></div>
+          <div><div class="cert-name">Website UI/UX Designing using ChatGPT</div><div class="cert-by">Simplilearn</div></div>
           <div class="cert-date">Aug 2025 <span class="cert-ext">↗</span></div>
         </a>
       </div>
@@ -248,16 +299,18 @@ footer{border-top:2px solid var(--border);display:grid;grid-template-columns:1fr
   </div>
   <footer><div class="f-l">Angeles City · Pampanga</div><div class="f-c">Martin Conrad S. Villanueva</div><div class="f-r">© <span>2026</span></div></footer>
 </div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const star=document.getElementById('cur-star'),trail=document.getElementById('cur-trail');
-const starSvg=star.querySelector('svg'),trailSvg=trail.querySelector('svg');
-let mx=0,my=0,tx=0,ty=0,ang=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;star.style.left=mx+'px';star.style.top=my+'px';});
-(function loop(){tx+=(mx-tx)*.09;ty+=(my-ty)*.09;trail.style.left=tx+'px';trail.style.top=ty+'px';ang+=1.5;star.style.transform=`translate(-50%,-50%) rotate(${ang}deg)`;requestAnimationFrame(loop);})();
-document.querySelectorAll('a,button,.cert-row,.sk-tag,.edu-row').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{starSvg.setAttribute('width','38');starSvg.setAttribute('height','38');trailSvg.setAttribute('width','24');trailSvg.setAttribute('height','24');});
-  el.addEventListener('mouseleave',()=>{starSvg.setAttribute('width','26');starSvg.setAttribute('height','26');trailSvg.setAttribute('width','16');trailSvg.setAttribute('height','16');});
-});
+if(star&&trail){
+  const starSvg=star.querySelector('svg'),trailSvg=trail.querySelector('svg');
+  let mx=0,my=0,tx=0,ty=0,ang=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;star.style.left=mx+'px';star.style.top=my+'px';});
+  (function loop(){tx+=(mx-tx)*.09;ty+=(my-ty)*.09;trail.style.left=tx+'px';trail.style.top=ty+'px';ang+=1.5;star.style.transform=`translate(-50%,-50%) rotate(${ang}deg)`;requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button,.cert-row,.sk-tag,.edu-row').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{starSvg.setAttribute('width','38');starSvg.setAttribute('height','38');trailSvg.setAttribute('width','24');trailSvg.setAttribute('height','24');});
+    el.addEventListener('mouseleave',()=>{starSvg.setAttribute('width','26');starSvg.setAttribute('height','26');trailSvg.setAttribute('width','16');trailSvg.setAttribute('height','16');});
+  });
+}
 document.addEventListener('click',e=>{
   for(let i=0;i<6;i++){const b=document.createElement('div');b.className='cur-burst';b.style.left=e.clientX+'px';b.style.top=e.clientY+'px';b.style.animationDelay=(i*40)+'ms';b.innerHTML=`<svg width="${10+i*3}" height="${10+i*3}" viewBox="0 0 28 28" fill="none"><path d="M14 0 C14 0 15.6 11.4 14 14 C12.4 16.6 0 14 0 14 C0 14 12.4 11.4 14 14 C15.6 16.6 14 28 14 28 C14 28 12.4 16.6 14 14 C15.6 11.4 28 14 28 14 C28 14 15.6 16.6 14 14 C12.4 11.4 14 0 14 0Z" fill="var(--red)"/></svg>`;document.body.appendChild(b);setTimeout(()=>b.remove(),600);}
 });
